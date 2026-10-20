@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { read, label, lessons } from '@/lib/db'; import { signOut } from '@/actions'; import { user } from '@/lib/auth'; import { S } from '@/lib/ui';
 export default async function D() {
   const u = await user('student'), d = await read(), mine = d.progress.filter(p => p.u === u.id);

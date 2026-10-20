@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { notFound, redirect } from 'next/navigation'; import { read, lessons, locked } from '@/lib/db'; import { user } from '@/lib/auth'; import { completeLesson } from '@/actions';
 import { Prose, Side, S } from '@/lib/ui'; import Art from '@/lib/art'; import ScrollBar from '@/components/ScrollBar';
 export default async function L({ params }: { params: Promise<{ id: string; n: string }> }) {

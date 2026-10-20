@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { signIn, signUp } from '@/actions'; import { getCurrentUser } from '@/lib/auth'; import { S } from '@/lib/ui'; import { redirect } from 'next/navigation';
 export default async function P({ searchParams }: { searchParams: Promise<{ e?: string; out?: string }> }) {
   const { e, out } = await searchParams;

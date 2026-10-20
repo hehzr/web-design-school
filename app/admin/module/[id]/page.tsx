@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { read } from '@/lib/db'; import { user } from '@/lib/auth'; import { saveModule } from '@/actions';
 export default async function E({ params }: { params: Promise<{ id: string }> }) {
   await user('admin'); const { id } = await params, m = (await read()).modules.find(x => x.id === Number(id));

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { read, label, lessons } from '@/lib/db'; import { user } from '@/lib/auth'; import { delModule, review, signOut } from '@/actions'; import { S } from '@/lib/ui';
 export default async function A() {
   await user('admin'); const d = await read(), st = d.users.filter(u => u.role === 'student'), P = (u: number, m: number) => d.progress.find(p => p.u === u && p.m === m);

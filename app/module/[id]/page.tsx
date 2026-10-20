@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { notFound, redirect } from 'next/navigation'; import { read, lessons, locked } from '@/lib/db'; import { user } from '@/lib/auth';
 export default async function M({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params, u = await user('student'), d = await read(), m = d.modules.find(x => x.id === Number(id));

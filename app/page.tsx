@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { user } from '@/lib/auth';
 import { read, lessons } from '@/lib/db';
 export default async function Home() {
