@@ -11,6 +11,8 @@ export type DB = { users: User[]; modules: Mod[]; progress: Prog[] };
 const localFile = path.join(process.cwd(), 'data', 'db.json');
 const seed: DB = seedData as DB;
 let neonClient: any;
+// Local JSON storage is allowed only during `next dev`; deployed environments must use Postgres.
+const useLocalFile = process.env.NODE_ENV === 'development' && !(process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL);
 function mergeSeedModules(data: DB): DB {
   const ids = new Set(data.modules.map(m => m.id));
   const missing = seed.modules.filter(m => !ids.has(m.id));
@@ -38,7 +40,7 @@ async function sqlClient() {
   return neonClient;
 }
 export async function read(): Promise<DB> {
-  if (process.env.NODE_ENV !== 'production' && !(process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL)) {
+  if (useLocalFile) {
     if (!fs.existsSync(localFile)) { fs.mkdirSync(path.dirname(localFile), { recursive: true }); fs.writeFileSync(localFile, JSON.stringify(seed, null, 2)); }
     const local = JSON.parse(fs.readFileSync(localFile, 'utf8')) as DB;
     const count = local.modules.length; mergeSeedModules(local);
@@ -58,7 +60,7 @@ export async function read(): Promise<DB> {
   return initialized[0].data as DB;
 }
 export async function write(d: DB): Promise<void> {
-  if (process.env.NODE_ENV !== 'production' && !(process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL)) {
+  if (useLocalFile) {
     fs.mkdirSync(path.dirname(localFile), { recursive: true });
     fs.writeFileSync(localFile, JSON.stringify(d, null, 2));
     return;
